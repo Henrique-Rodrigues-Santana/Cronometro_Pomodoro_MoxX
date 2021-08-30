@@ -9,6 +9,21 @@ part of 'Pomodoro.store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$PomodoroStore on _PomodoroStore, Store {
+  final _$iniciarAtom = Atom(name: '_PomodoroStore.iniciar');
+
+  @override
+  bool get iniciar {
+    _$iniciarAtom.reportRead();
+    return super.iniciar;
+  }
+
+  @override
+  set iniciar(bool value) {
+    _$iniciarAtom.reportWrite(value, super.iniciar, () {
+      super.iniciar = value;
+    });
+  }
+
   final _$minutoAtom = Atom(name: '_PomodoroStore.minuto');
 
   @override
@@ -73,6 +88,39 @@ mixin _$PomodoroStore on _PomodoroStore, Store {
       ActionController(name: '_PomodoroStore');
 
   @override
+  void inicia() {
+    final _$actionInfo = _$_PomodoroStoreActionController.startAction(
+        name: '_PomodoroStore.inicia');
+    try {
+      return super.inicia();
+    } finally {
+      _$_PomodoroStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void parar() {
+    final _$actionInfo = _$_PomodoroStoreActionController.startAction(
+        name: '_PomodoroStore.parar');
+    try {
+      return super.parar();
+    } finally {
+      _$_PomodoroStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void reiniciar() {
+    final _$actionInfo = _$_PomodoroStoreActionController.startAction(
+        name: '_PomodoroStore.reiniciar');
+    try {
+      return super.reiniciar();
+    } finally {
+      _$_PomodoroStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void incrementarTempoTrabalho() {
     final _$actionInfo = _$_PomodoroStoreActionController.startAction(
         name: '_PomodoroStore.incrementarTempoTrabalho');
@@ -119,6 +167,7 @@ mixin _$PomodoroStore on _PomodoroStore, Store {
   @override
   String toString() {
     return '''
+iniciar: ${iniciar},
 minuto: ${minuto},
 segundos: ${segundos},
 tempoTrabalho: ${tempoTrabalho},

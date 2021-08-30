@@ -1,5 +1,6 @@
 import 'package:cronometromobx/Store/Pomodoro.store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 import 'Cronometro_Botao.dart';
@@ -31,7 +32,7 @@ class Cronometro extends StatelessWidget {
           ),
           Center(
             child: Text(
-              "${store.minuto}:${store.segundos}",
+              "${store.minuto.toString().padLeft(2,'0')}:${store.segundos.toString().padLeft(2,'0')}",
               style: TextStyle(fontSize: 120,color: Colors.white),
             ),
           ),
@@ -39,23 +40,30 @@ class Cronometro extends StatelessWidget {
             height: 20,
           ),
           Center(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CronometroBotao(
-                    icone: Icons.play_arrow,
-                    texto: "Iniciar"
-                ),
-                CronometroBotao(
-                    icone: Icons.stop,
-                    texto: "Parar"
-                ),
-                CronometroBotao(
-                    icone: Icons.refresh,
-                    texto: "Reiniciar"
-                )
-              ],
-            ),
+            child: Observer(
+              builder: (_) => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  if(!store.iniciar)
+                    CronometroBotao(
+                        icone: Icons.play_arrow,
+                        texto: "Iniciar",
+                        click: store.inicia
+                    ),
+                  if(store.iniciar)
+                    CronometroBotao(
+                      icone: Icons.stop,
+                      texto: "Parar",
+                      click: store.parar,
+                    ),
+                  CronometroBotao(
+                      icone: Icons.refresh,
+                      texto: "Reiniciar",
+                      click: store.reiniciar,
+                  )
+                ],
+              )
+            )
           )
 
 

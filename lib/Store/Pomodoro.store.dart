@@ -5,7 +5,8 @@ part 'Pomodoro.store.g.dart';
 class PomodoroStore = _PomodoroStore with _$PomodoroStore;
 
 abstract class _PomodoroStore with Store{
-
+  @observable
+  bool iniciar = false;
 
   @observable
   int minuto = 2;
@@ -20,6 +21,21 @@ abstract class _PomodoroStore with Store{
 
   @observable
   int tempoDescanso = 1;
+
+
+  @action
+  void inicia(){
+    iniciar = true;
+  }
+  @action
+  void parar(){
+    iniciar = false;
+  }
+
+  @action
+  void reiniciar(){
+    iniciar = false;
+  }
 
   @action
   void incrementarTempoTrabalho(){
