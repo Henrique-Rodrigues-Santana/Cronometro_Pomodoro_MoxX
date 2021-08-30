@@ -1,5 +1,7 @@
 import 'package:cronometromobx/Pages/Pomodoro.dart';
+import 'package:cronometromobx/Store/Pomodoro.store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
@@ -10,14 +12,21 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
+    return MultiProvider(
+      providers: [
+        Provider<PomodoroStore>(
+          create: (_) => PomodoroStore(),
+        )
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
 
-        primarySwatch: Colors.blue,
+          primarySwatch: Colors.blue,
+        ),
+        home: Pomodoro(),
       ),
-      home: Pomodoro(),
     );
   }
 }
